@@ -17,4 +17,19 @@
 - 中断的产生：
   -TCIE为
   
-  ## HAL库中
+  ## 使用HAL库编写串口程序
+  > 串口参数（波特率、停止位）初始化：主要调用`HAL_UART_Init`函数
+  ```c
+  void uart_init(u32 bound)
+{	
+	//UART 初始化设置
+	UART1_Handler.Instance=USART1;					    //USART1
+	UART1_Handler.Init.BaudRate=bound;				    //波特率
+	UART1_Handler.Init.WordLength=UART_WORDLENGTH_8B;   //字长为8位数据格式
+	UART1_Handler.Init.StopBits=UART_STOPBITS_1;	    //一个停止位
+	UART1_Handler.Init.Parity=UART_PARITY_NONE;		    //无奇偶校验位
+	UART1_Handler.Init.HwFlowCtl=UART_HWCONTROL_NONE;   //无硬件流控
+	UART1_Handler.Init.Mode=UART_MODE_TX_RX;		    //收发模式
+	HAL_UART_Init(&UART1_Handler);					    //HAL_UART_Init()会使能UART1
+
+  ```
