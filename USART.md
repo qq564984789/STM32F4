@@ -17,7 +17,7 @@
 - 中断的产生：
   -TCIE为
   
-  ## 使用HAL库编写串口程序
+## 使用HAL库编写串口程序
 > 1.串口参数（波特率、停止位）初始化：主要调用`HAL_UART_Init`函数
   ```c
  UART_HandleTypeDef UART1_Handler;                         //UART串口句柄,全局变量
@@ -34,6 +34,8 @@
 	HAL_UART_Init(&UART1_Handler);			 
   ```
 > 注意：最后的`HAL_UART_Init(&UART1_Handler);`除了会对串口参数初始化之外，还会使能串口（内部调用`__HAL_UART_ENABLE(huart);`）,还会调用回调函数进行MCU级别的初始化(内部调用`HAL_UART_MspInit(huart);`)。对于`HAL_UART_MspInit(huart);`,我们通常不会使用系统提供的这个weak函数，而是会自己重写，主要重写内容包括：IO口初始化、时钟使能、NVIC配置。如何重写呢？见第二步
+
+
 
 > 2. I/O时钟使能、串口时钟使能、GPIO初始化、I/O口复用、中断配置(使能、优先级设置)
 ```c
